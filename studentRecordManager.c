@@ -22,17 +22,24 @@ void init_database(database *db, int initial_capacity){
             printf("Error 404\n");
             exit(1);
         }
-        else{
-            db->capacity = initial_capacity;
-            db->count = 0;
-        }
+        db->capacity = initial_capacity;
+        db->count = 0;
+    }
+}
+void free_database(database *db){
+    if(db != NULL && db->studentptr != NULL){
+        free(db->studentptr);
+        db->studentptr = NULL;
+        db->count = 0;
+        db->capacity = 0;
     }
 }
 
 int main(){
-    int k = sizeof(Student);
-    int p = sizeof(database);
-    printf("%d", k);
-    printf("\n%d", p);
+    database db;
+    init_database(&db, 2);
+    printf("%d %p\n",db.capacity, db.studentptr);
+    free_database(&db);
+    printf("%d %p\n",db.capacity, db.studentptr);
     return 0;
 }
